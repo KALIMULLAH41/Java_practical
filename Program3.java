@@ -1,29 +1,19 @@
-package twoarray;
-
-import java.util.Scanner;
+package ArrayExample;
 
 public class Program3 {
 	public static void main(String[] args) {
-		Scanner kb=new Scanner(System.in);
-		System.out.println("Enter the number of classes and its student ");
-		int  classes =kb.nextInt();
-		System.out.println("Enter the number backlog ");
-		int student =kb.nextInt();
-		int [][]arr=new int[classes][student];
-		for(int i=0;i<=arr.length-1;i++) {
-		  for(int j=0;j<=arr[i].length-1;j++) {
-			System.out.println("Enter the number:"+(i+1)+"student"+(j+1));
-			arr[i][j]=kb.nextInt();
+		float []arr =new float[5];
+		arr[0]=12.5f;
+		arr[1]=12.9f;
+		arr[2]=18.9f;
+		arr[3]=15.9f;
+		arr[4]=20.5f;
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		System.out.println(arr[2]);
+		System.out.println(arr[3]);
+		System.out.println(arr[4]);
 		
-		
-		}
 	}
-		for(int i=0;i<=arr.length-1;i++)	{
-			for(int j=0;j<=arr[i].length-1;j++) {
-				System.out.println("The backlog class isv:"+(i+1)+" student : "+(j+1)+" is : "+arr[i][j]);
-			}
-		}
-	}
-
 
 }
