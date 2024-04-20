@@ -1,24 +1,19 @@
-package loopexample;
-
-import java.util.Scanner;
+package ArrayExample;
 
 public class Program3 {
-public static void main(String[] args) {
-	Scanner kb =new Scanner(System.in);
-	System.out.println("Enter the marks ");
-	int marks =kb.nextInt();
-	if(marks>=80 && marks <=100) {
-		System.out.println("Grade -A");
+	public static void main(String[] args) {
+		float []arr =new float[5];
+		arr[0]=12.5f;
+		arr[1]=12.9f;
+		arr[2]=18.9f;
+		arr[3]=15.9f;
+		arr[4]=20.5f;
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		System.out.println(arr[2]);
+		System.out.println(arr[3]);
+		System.out.println(arr[4]);
+		
 	}
-	else if(marks>=60 && marks<80) {
-		System.out.println("Grade -B");
-	}
-	else if(marks>=35 && marks <60) {
-		System.out.println("Grade -C");
-	}
-	else 
-	{
-		System.out.println("invalid marks");
-	}
-}
+
 }
