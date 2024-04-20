@@ -1,21 +1,28 @@
-package ArrayExample;
+package twoarray;
+
+import java.util.Scanner;
 
 public class Program1 {
 	public static void main(String[] args) {
-		int []arr =new int [6];
-		arr[0]=10;
-		arr[1]=15;
-		arr[2]=20;
-		arr[3]=50;
-		arr[4]=30;
-		arr[5]=40;
-		System.out.println(arr[0]);
-		System.out.println(arr[1]);
-		System.out.println(arr[2]);
-		System.out.println(arr[3]);
-		System.out.println(arr[4]);
-		System.out.println(arr[5]);
+		Scanner kb=new Scanner(System.in);
+		System.out.println("Enter the number of companies ");
+		 int  comp =kb.nextInt();//rows
+		  System.out.println("Enter the number of empolyees in each company ");
+		   int emp =kb.nextInt();//cols
+	       	String[][]arr=new String[comp][emp];
+		for(int i=0;i<=arr.length-1;i++) {
+		  for(int j=0;j<=arr[i].length-1;j++) {
+			System.out.println("Enter the name of company:"+(i+1)+"employee"+(j+1));
+			arr[i][j]=kb.next();
 		
+		
+		}
+	}
+		for(int i=0;i<=arr.length-1;i++)	{
+			for(int j=0;j<=arr[i].length-1;j++) {
+				System.out.println("The name of company :"+(i+1)+"employee:"+(j+1)+"is :"+arr[i][j]);
+			}
+		}
 	}
 
 }
