@@ -10,23 +10,23 @@ import java.util.Scanner;
  *
  * @author kalim
  */
-public class Prime {
+public class SumOfDigit1 {
     public static void main(String args[]){
-    Scanner kb=new Scanner(System.in);
+    Scanner kb = new Scanner(System.in);
     System.out.println("Enter a number :");
-    int num=kb.nextInt();
-    int count=0;
-    for(int i=1;i<=num;i++){
-        if(num%i==0){
-        count++;
-        }
-        
-    }
-    if(count ==2){
-        System.out.println("Prime number :");
-    }
-    else{
-    System.out.println("Not prime number :");
-    }
+ int num=kb.nextInt();
+ int first=0,last;
+  last=num%10;
+  int sum=0;
+ while(num!=0){
+     
+ first=num%10;
+ num=num/10;
+  
+  sum =first+last;
+    
+}
+ System.out.println("Sum is :"+sum);
+         
     }
 }

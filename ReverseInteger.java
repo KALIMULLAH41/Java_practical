@@ -10,23 +10,19 @@ import java.util.Scanner;
  *
  * @author kalim
  */
-public class Prime {
+public class ReverseInteger {
     public static void main(String args[]){
-    Scanner kb=new Scanner(System.in);
+    Scanner kb =new Scanner(System.in);
     System.out.println("Enter a number :");
-    int num=kb.nextInt();
-    int count=0;
-    for(int i=1;i<=num;i++){
-        if(num%i==0){
-        count++;
-        }
-        
+    int num =kb.nextInt();
+    int lastDigit, reverse=0;
+    while(num>0){
+        lastDigit=num%10;
+        reverse =reverse*10+lastDigit; 
+    num=num/10;
     }
-    if(count ==2){
-        System.out.println("Prime number :");
+    
+    System.out.println("Reverse is :"+reverse);
     }
-    else{
-    System.out.println("Not prime number :");
-    }
-    }
+    
 }

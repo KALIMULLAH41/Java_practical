@@ -10,23 +10,16 @@ import java.util.Scanner;
  *
  * @author kalim
  */
-public class Prime {
+public class Table {
     public static void main(String args[]){
-    Scanner kb=new Scanner(System.in);
+    
+    Scanner kb =new Scanner(System.in);
     System.out.println("Enter a number :");
     int num=kb.nextInt();
-    int count=0;
-    for(int i=1;i<=num;i++){
-        if(num%i==0){
-        count++;
-        }
-        
+    for(int i=1;i<=10;i++){
+        System.out.println(num+"*"+i+"="+num*i);
     }
-    if(count ==2){
-        System.out.println("Prime number :");
+    
     }
-    else{
-    System.out.println("Not prime number :");
-    }
-    }
+    
 }
