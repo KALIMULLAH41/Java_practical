@@ -1,65 +1,72 @@
-//Given a string,s , matching the regular expression [A-Za-z !,?._'@]+, split the string into tokens. We define a token to be one or more consecutive English alphabetic letters. Then, print the number of tokens, followed by each token on a new line.
-//
-//Note: You may find the String.split method helpful in completing this challenge.
-//
-//Input Format
-//
-//A single string,s .
-//
-//Constraints
-//1<=length of s<=4.10**5
-//  s is composed of any of the following: English alphabetic letters, blank spaces, exclamation points (!), commas (,), question marks (?), periods (.), underscores (_), apostrophes ('), and at symbols (@).
-//Output Format
-//
-//On the first line, print an integer, n, denoting the number of tokens in string s (they do not need to be unique). Next,s print each of the  tokens on a new line in the same order as they appear in input string .
-//
-//Sample Input
-//
-//He is a very very good boy, isn't he?
-//Sample Output
-//
-//10
-//He
-//is
-//a
-//very
-//very
-//good
-//boy
-//isn
-//t
-//he
-//Explanation
-//
-//We consider a token to be a contiguous segment of alphabetic characters. There are a total of 10 such tokens in string s, and each token is printed in the same order in which it appears in string 
-package HackerRankCode;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package IntevewQuestSolutionHacker;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author kalim
  */
 public class Solution16 {
-    
+  
 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        String s = scan.nextLine().trim();
-        scan.close();
+    /*
+     * Complete the 'gameOfThrones' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts STRING s as parameter.
+     */
 
-        if (s.isEmpty()) {
-            System.out.println(0);
-        } else {
-            String[] tokens = s.split("[ !,?._'@]+");
+    public static String gameOfThrones(String s) {
+        // Count the frequency of characters in the string
+        Map<Character, Integer> frequencyMap = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+        }
 
-            System.out.println(tokens.length);
-
-            for (String token : tokens) {
-                System.out.println(token);
+        // Check if the frequency of each character is even or odd
+        int oddCount = 0;
+        for (int count : frequencyMap.values()) {
+            if (count % 2 != 0) {
+                oddCount++;
             }
         }
+
+        // If the count of characters with odd frequency is at most 1, it's possible to form a palindrome
+        if (oddCount <= 1) {
+            return "YES";
+        } else {
+            return "NO";
+        }
+    }
+
+}
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = bufferedReader.readLine();
+
+        String result = Solution16.gameOfThrones(s);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
+
     
 

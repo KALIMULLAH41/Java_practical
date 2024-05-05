@@ -1,63 +1,87 @@
-//Java has 8 primitive data types; char, boolean, byte, short, int, long, float, and double. For this exercise, we'll work with the primitives used to hold integer values (byte, short, int, and long):
+//Alice and Bob each created one problem for HackerRank. A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories: problem clarity, originality, and difficulty.
 //
-//A byte is an 8-bit signed integer.
-//A short is a 16-bit signed integer.
-//An int is a 32-bit signed integer.
-//A long is a 64-bit signed integer.
-//Given an input integer, you must determine which primitive data types are capable of properly storing that input.
+//The rating for Alice's challenge is the triplet a = (a[0], a[1], a[2]), and the rating for Bob's challenge is the triplet b = (b[0], b[1], b[2]).
 //
-//To get you started, a portion of the solution is provided for you in the editor.
+//The task is to find their comparison points by comparing a[0] with b[0], a[1] with b[1], and a[2] with b[2].
 //
-//Reference: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
+//If a[i] > b[i], then Alice is awarded 1 point.
+//If a[i] < b[i], then Bob is awarded 1 point.
+//If a[i] = b[i], then neither person receives a point.
+//Comparison points is the total points a person earned.
 //
+//Given a and b, determine their respective comparison points.
+//
+//Example
+//
+//a = [1, 2, 3]
+//b = [3, 2, 1]
+//For elements *0*, Bob is awarded a point because a[0] .
+//For the equal elements a[1] and b[1], no points are earned.
+//Finally, for elements 2, a[2] > b[2] so Alice receives a point.
+//The return array is [1, 1] with Alice's score first and Bob's second.
+//
+//Function Description
+//
+//Complete the function compareTriplets in the editor below.
+//
+//compareTriplets has the following parameter(s):
+//
+//int a[3]: Alice's challenge rating
+//int b[3]: Bob's challenge rating
+//Return
+//
+//int[2]: Alice's score is in the first position, and Bob's score is in the second.
 //Input Format
 //
-//The first line contains an integer, T, denoting the number of test cases.
-//Each test case, T, is comprised of a single line with an integer, n, which can be arbitrarily large or small.
+//The first line contains 3 space-separated integers, a[0], a[1], and a[2], the respective values in triplet a.
+//The second line contains 3 space-separated integers, b[0], b[1], and b[2], the respective values in triplet b.
 //
-//Output Format
+//Constraints
 //
-//For each input variable n and appropriate primitive data Type , you must determine if the given primitives are capable of storing it. If yes, then print:
+//1 ≤ a[i] ≤ 100
+//1 ≤ b[i] ≤ 100
+//Sample Input 0
 //
-//n can be fitted in:
-//* dataType
-//If there is more than one appropriate data type, print each one on its own line and order them by size (i.e.:  byte<short<int<long).
+//5 6 7
+//3 6 10
+//Sample Output 0
 //
-//If the number cannot be stored in one of the four aforementioned primitives, print the line:
+//1 1
+//Explanation 0
 //
-//n can't be fitted anywhere.
-//Sample Input
+//In this example:
 //
-//5
-//-150
-//150000
-//1500000000
-//213333333333333333333333333333333333
-//-100000000000000
-//Sample Output
+//Now, let's compare each individual score:
 //
-//-150 can be fitted in:
-//* short
-//* int
-//* long
-//150000 can be fitted in:
-//* int
-//* long
-//1500000000 can be fitted in:
-//* int
-//* long
-//213333333333333333333333333333333333 can't be fitted anywhere.
-//-100000000000000 can be fitted in:
-//* long
-//Explanation
+//, so Alice receives  point.
+//, so nobody receives a point.
+//, so Bob receives  point.
+//Alice's comparison score is , and Bob's comparison score is . Thus, we return the array .
 //
-//-150 can be stored in a short, an int, or a long.
+//Sample Input 1
 //
-//21333333333333333333333333333333333 is very large and is outside of the allowable range of values for the prim   Create a java program
+//17 28 30
+//99 16 8
+//Sample Output 1
+//
+//2 1
+//Explanation 1
+//
+//Comparing the  elements,  so Bob receives a point.
+//Comparing the  and  elements,  and  so Alice receives two points.
+//The return array is .
+package StacksAndQueues;
 
-package HackerRankCode;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -66,30 +90,67 @@ import java.util.Scanner;
 public class Solution5 {
     
 
+    /*
+     * Complete the 'compareTriplets' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY a
+     *  2. INTEGER_ARRAY b
+     */
 
-    public static void main(String[] argh) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        for (int i = 0; i < t; i++) {
-            try {
-                long x = sc.nextLong();
-                System.out.println(x + " can be fitted in:");
-                if (x >= Byte.MIN_VALUE && x <= Byte.MAX_VALUE) {
-                    System.out.println("* byte");
-                }
-                if (x >= Short.MIN_VALUE && x <= Short.MAX_VALUE) {
-                    System.out.println("* short");
-                }
-                if (x >= Integer.MIN_VALUE && x <= Integer.MAX_VALUE) {
-                    System.out.println("* int");
-                }
-                System.out.println("* long");
-            } catch (Exception e) {
-                System.out.println(sc.next() + " can't be fitted anywhere.");
+    public static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
+        int aliceScore = 0;
+        int bobScore = 0;
+        
+        for (int i = 0; i < a.size(); i++) {
+            int aliceRating = a.get(i);
+            int bobRating = b.get(i);
+            
+            if (aliceRating > bobRating) {
+                aliceScore++;
+            } else if (aliceRating < bobRating) {
+                bobScore++;
             }
         }
-        sc.close();
+        
+        List<Integer> result = new ArrayList<>();
+        result.add(aliceScore);
+        result.add(bobScore);
+        
+        return result;
+    }
+
+}
+
+ class Solution {
+    public static void main(String[] args) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+            List<Integer> a = Arrays.stream(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+
+            List<Integer> b = Arrays.stream(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+
+            List<Integer> result = Solution5.compareTriplets(a, b);
+
+            bufferedWriter.write(
+                result.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(" "))
+                + "\n"
+            );
+
+            bufferedReader.close();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

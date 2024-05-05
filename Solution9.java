@@ -1,68 +1,85 @@
-//You are given an integer  n, you have to convert it into a string.
+//Staircase detail
 //
-//Please complete the partially completed code in the editor. If your code successfully converts  n into a string  s the code will print "Good job". Otherwise it will print "Wrong answer".
+//This is a staircase of size n=4 :
 //
-//n can range between -100 to 100  inclusive.
+//   #
+//  ##
+// ###
+//####
+//Its base and height are both equal to n. It is drawn using # symbols and spaces. The last line is not preceded by any spaces.
 //
-//Sample Input 0
+//Write a program that prints a staircase of size n .
 //
-//100
-//Sample Output 0
+//Function Description
 //
-//Good job
-package HackerRankCode;
+//Complete the staircase function in the editor below.
+//
+//staircase has the following parameter(s):
+//
+//int n: an integer
+//Print
+//
+//Print a staircase as described above.
+//
+//Input Format
+//
+//A single integer, n , denoting the size of the staircase.
+//
+//Constraints
+//
+// .0<=n<=100
+//
+//Output Format
+//
+//Print a staircase of size n using # symbols and spaces.
+//
+//Note: The last line must have 0 spaces in it.
+//
+//Sample Input
+//
+//6 
+//Sample Output
+//
+//     #
+//    ##
+//   ###
+//  ####
+// #####
+//######
+//Explanation
+//
+//The staircase is right-aligned, composed of # symbols and spaces, and has a height and width of n=6.
+package IntevewQuestSolutionHacker;
 
-import java.security.Permission;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  *
  * @author kalim
  */
-public class Solution9 {
-   
+class Solution9 {
+    
 
-
-    public static void main(String[] args) {
-
-        DoNotTerminate.forbidExit();
-
-        try {
-            Scanner in = new Scanner(System.in);
-            int n = in.nextInt();
-            in.close();
-            // Convert integer n to a string
-            String s = String.valueOf(n);
-            // Print "Good job"
-            if (n == Integer.parseInt(s)) {
-                System.out.println("Good job");
-            } else {
-                System.out.println("Wrong answer");
-            }
-        } catch (DoNotTerminate.ExitTrappedException e) {
-            System.out.println("Unsuccessful Termination!!");
+    public static void staircase(int n) {
+        for (int i = 1; i <= n; i++) {
+            String spaces = " ".repeat(n - i);
+            String hashes = "#".repeat(i);
+            System.out.println(spaces + hashes);
         }
     }
 }
 
-// The following class prevents the program from terminating when calling System.exit()
-class DoNotTerminate {
+  class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static class ExitTrappedException extends SecurityException {
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
 
-        private static final long serialVersionUID = 1L;
-    }
+        Solution9.staircase(n);
 
-    public static void forbidExit() {
-        final SecurityManager securityManager = new SecurityManager() {
-            @Override
-            public void checkPermission(Permission permission) {
-                if (permission.getName().contains("exitVM")) {
-                    throw new ExitTrappedException();
-                }
-            }
-        };
-        System.setSecurityManager(securityManager);
+        bufferedReader.close();
     }
 }
 

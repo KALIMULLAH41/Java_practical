@@ -1,51 +1,47 @@
-
-//In this challenge, we test your knowledge of using if-else conditional statements to automate decision-making processes. An if-else statement has the following logical flow:
+//In this challenge, you are required to calculate and print the sum of the elements in an array, keeping in mind that some of those integers may be quite large.
 //
-//Wikipedia if-else flow chart
+//Function Description
 //
-//Source: Wikipedia
+//Complete the aVeryBigSum function in the editor below. It must return the sum of all array elements.
 //
-//Task
-//Given an integer, , perform the following conditional actions:
+//aVeryBigSum has the following parameter(s):
 //
-//If  is odd, print Weird
-//If  n is  even and in the inclusive range of  to , print Not Weird
-//If n  is n even and in the inclusive range of 2 to 5, print Weird
-//If n  is even and greater than 20 , print Not Weird
-//Complete the stub code provided in your editor to print whether or not  is weird.
+//int ar[n]: an array of integers .
+//Return
 //
+//long: the sum of all array elements
 //Input Format
 //
-//A single line containing a positive integer ,n .
+//The first line of the input consists of an integer .
+//The next line contains  space-separated integers contained in the array.
 //
-//Constraints
-//1<=n<=100
 //Output Format
 //
-//Print Weird if the number is weird; otherwise, print Not Weird.
+//Return the integer sum of the elements in the array.
 //
-//Sample Input 0
+//Constraints
 //
-//3
-//Sample Output 0
 //
-//Weird
-//Sample Input 1
+//Sample Input
 //
-//24
-//Sample Output 1
+//5
+//1000000001 1000000002 1000000003 1000000004 1000000005
+//Output
 //
-//Not Weird
-//Explanation
+//5000000015
+//Note:
 //
-//Sample Case 0: n=3
-//n  is odd and odd numbers are weird, so we print Weird.
-//
-//Sample Case 1: n =24
-// n>20 and n is even, so it isn't weird. Thus, we print Not Weird. 
-package HackerRankCode;
+//The range of the 32-bit integer is .
+//When we add several integer values, the resulting sum might exceed the above range. You might need to use long int C/C++/Java to store such sums.
+package StacksAndQueues;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -54,27 +50,36 @@ import java.util.Scanner;
 public class Solution6 {
     
 
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-    private static final Scanner scanner = new Scanner(System.in);
+        int arCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-    public static void main(String[] args) {
-        int N = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        if (N % 2 != 0) {
-            System.out.println("Weird");
-        } else {
-            if (N >= 2 && N <= 5) {
-                System.out.println("Not Weird");
-            } else if (N >= 6 && N <= 20) {
-                System.out.println("Weird");
-            } else {
-                System.out.println("Not Weird");
-            }
+        List<Long> ar = new ArrayList<>();
+        String[] arItems = bufferedReader.readLine().split(" ");
+        for (int i = 0; i < arCount; i++) {
+            long arItem = Long.parseLong(arItems[i]);
+            ar.add(arItem);
         }
-        
-        scanner.close();
+
+        long result = aVeryBigSum(ar);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+
+    static long aVeryBigSum(List<Long> ar) {
+        long sum = 0;
+        for (long num : ar) {
+            sum += num;
+        }
+        return sum;
     }
 }
+
     
 

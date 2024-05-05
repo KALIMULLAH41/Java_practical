@@ -1,101 +1,97 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package HackerRankCode;
-
-//In this challenge, you must read an integer, a double, and a String from stdin, then print the values according to the instructions in the Output Format section below. To make the problem a little easier, a portion of the code is provided for you in the editor.
-
-import java.util.Scanner;
-
+//Skyline Real Estate Developers is planning to demolish a number of old, unoccupied buildings and construct a shopping mall in their place. Your task is to find the largest solid area in which the mall can be constructed.
 //
-//Note: We recommend completing Java Stdin and Stdout I before attempting this challenge.
+//There are a number of buildings in a certain two-dimensional landscape. Each building has a height, given by . If you join  adjacent buildings, they will form a solid rectangle of area .
+//
+//Example
+//
+//A rectangle of height  and length  can be constructed within the boundaries. The area formed is .
+//
+//Function Description
+//
+//Complete the function largestRectangle int the editor below. It should return an integer representing the largest rectangle that can be formed within the bounds of consecutive buildings.
+//
+//largestRectangle has the following parameter(s):
+//
+//int h[n]: the building heights
+//Returns
+//- long: the area of the largest rectangle that can be formed within the bounds of consecutive buildings
 //
 //Input Format
 //
-//There are three lines of input:
+//The first line contains , the number of buildings.
+//The second line contains  space-separated integers, each the height of a building.
 //
-//The first line contains an integer.
-//The second line contains a double.
-//The third line contains a String.
-//Output Format
-//
-//There are three lines of output:
-//
-//On the first line, print String: followed by the unaltered String read from stdin.
-//On the second line, print Double: followed by the unaltered double read from stdin.
-//On the third line, print Int: followed by the unaltered integer read from stdin.
-//To make the problem easier, a portion of the code is already provided in the editor.
-//
-//Note: If you use the nextLine() method immediately following the nextInt() method, recall that nextInt() reads integer tokens; because of this, the last newline character for that line of integer input is still queued in the input buffer and the next nextLine() will be reading the remainder of the integer line (which is empty).
+//Constraints
 //
 //Sample Input
 //
-//42
-//3.1415
-//Welcome to HackerRank's Java tutorials!
+//STDIN       Function
+//-----       --------
+//5           h[] size n = 5
+//1 2 3 4 5   h = [1, 2, 3, 4, 5]
 //Sample Output
 //
-//String: Welcome to HackerRank's Java tutorials!
-//Double: 3.1415
-//Int: 42
-//Language
-//Java 7
-//More
-//12345678910111213141516171819202122
+//9
+//Explanation
 //
-//
-//Line: 21 Col: 1
-//
-//Test against custom input
-//Java
-//You have earned 10.00 points!
-//You are now 7 points away from the 1st star for your java badge.
-//72%18/25
-//Congratulations
-//You solved this challenge. Would you like to challenge your friends?Share on FacebookShare on TwitterShare on LinkedIn
-//
-//Test case 0
-//
-//Test case 1
-//
-//Test case 2
-//
-//Test case 3
-//
-//Test case 4
-//Compiler Message
-//Success
-//Input (stdin)
-//42
-//3.1415
-//Welcome to HackerRank's Java tutorials!
-//Expected Output
-//String: Welcome to HackerRank's Java tutorials!
-//Double: 3.1415
-//Int: 42
-//BlogScoringEnvironmentFAQAbout Us
+//An illustration of the test case follows.
+//image
+package StacksAndQueues;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
- 
- 
+/**
+ *
+ * @author kalim
+ */
 public class Solution1 {
-    
-
-
-
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int i = scan.nextInt();
-        double d = scan.nextDouble();
-        scan.nextLine(); // Consume the newline character
-        String s = scan.nextLine();
+  
+    public static long largestRectangle(List<Integer> h) {
+        Stack<Integer> stack = new Stack<>();
+        long maxArea = 0;
+        int n = h.size();
         
-        // Print the output
-        System.out.println("String: " + s);
-        System.out.println("Double: " + d);
-        System.out.println("Int: " + i);
+        for (int i = 0; i <= n; i++) {
+            int height = (i == n) ? 0 : h.get(i);
+            
+            while (!stack.isEmpty() && h.get(stack.peek()) > height) {
+                int topHeightIndex = stack.pop();
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, (long) h.get(topHeightIndex) * width);
+            }
+            
+            stack.push(i);
+        }
         
-        scan.close();
+        return maxArea;
+    }
+}
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> h = Arrays.stream(bufferedReader.readLine().split(" "))
+            .map(Integer::parseInt)
+            .collect(Collectors.toList());
+
+        long result = Solution1.largestRectangle(h);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
 

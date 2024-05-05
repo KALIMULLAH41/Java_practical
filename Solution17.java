@@ -1,64 +1,73 @@
-//Using Regex, we can easily match or search for patterns in a text. Before searching for a pattern, we have to specify one using some well-defined syntax.
-//
-//In this problem, you are given a pattern. You have to check whether the syntax of the given pattern is valid.
-//
-//Note: In this problem, a regex is only valid if you can compile it using the Pattern.compile method.
-//
-//Input Format
-//
-//The first line of input contains an integer N, denoting the number of test cases. The next N lines contain a string of any printable characters representing the pattern of a regex.
-//
-//Output Format
-//
-//For each test case, print Valid if the syntax of the given pattern is correct. Otherwise, print Invalid. Do not print the quotes.
-//
-//Sample Input
-//
-//3
-//([A-Z])(.+)
-//[AZ[a-z](a-z)
-//batcatpat(nat
-//Sample Output
-//
-//Valid
-//Invalid
-//Invalid
-package HackerRankCode;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package IntevewQuestSolutionHacker;
 
-import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author kalim
  */
 public class Solution17 {
+    
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int t = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+    /*
+     * Complete the 'twoStrings' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. STRING s1
+     *  2. STRING s2
+     */
+
+    public static String twoStrings(String s1, String s2) {
+        // Create sets to store characters from both strings
+        Set<Character> set1 = new HashSet<>();
+        Set<Character> set2 = new HashSet<>();
         
-        while (t-- > 0) {
-            String pattern = scanner.nextLine();
-            if (isValidRegex(pattern)) {
-                System.out.println("Valid");
-            } else {
-                System.out.println("Invalid");
+        // Add characters from s1 to set1
+        for (char c : s1.toCharArray()) {
+            set1.add(c);
+        }
+        
+        // Check if any character from s2 exists in set1
+        for (char c : s2.toCharArray()) {
+            if (set1.contains(c)) {
+                return "YES";
             }
         }
         
-        scanner.close();
+        // If no common character found, return "NO"
+        return "NO";
     }
-    
-    public static boolean isValidRegex(String pattern) {
-        try {
-            Pattern.compile(pattern);
-            return true;
-        } catch (PatternSyntaxException e) {
-            return false;
+
+}
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int q = Integer.parseInt(bufferedReader.readLine().trim());
+
+        for (int qItr = 0; qItr < q; qItr++) {
+            String s1 = bufferedReader.readLine();
+            String s2 = bufferedReader.readLine();
+            String result = Solution17.twoStrings(s1, s2);
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
         }
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
 

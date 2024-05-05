@@ -1,38 +1,63 @@
-//Static initialization blocks are executed when the class is loaded, and you can initialize static variables in those blocks.
+//Given an array of integers, calculate the ratios of its elements that are positive, negative, and zero. Print the decimal value of each fraction on a new line with  places after the decimal.
 //
-//It's time to test your knowledge of Static initialization blocks. You can read about it here.
+//Note: This challenge introduces precision problems. The test cases are scaled to six decimal places, though answers with absolute error of up to  are acceptable.
 //
-//You are given a class Solution with a main method. Complete the given code so that it outputs the area of a parallelogram with breadth B   and height  H. You should read the variables from the standard input.
+//Example
 //
-//If  B<=0 or H<=0  , the output should be "java.lang.Exception: Breadth and height must be positive" without quotes.
+//There are  elements, two positive, two negative and one zero. Their ratios are ,  and . Results are printed as:
+//
+//0.400000
+//0.400000
+//0.200000
+//Function Description
+//
+//Complete the plusMinus function in the editor below.
+//
+//plusMinus has the following parameter(s):
+//
+//int arr[n]: an array of integers
+//Print
+//Print the ratios of positive, negative and zero values in the array. Each value should be printed on a separate line with  digits after the decimal. The function should not return a value.
 //
 //Input Format
 //
-//There are two lines of input. The first line contains B : the breadth of the parallelogram. The next line contains H : the height of the parallelogram.
+//The first line contains an integer, , the size of the array.
+//The second line contains  space-separated integers that describe .
 //
 //Constraints
-//-100<=B<=100  -100<=H<=100
+//
+//
+//
 //Output Format
 //
-//If both values are greater than zero, then the main method must output the area of the parallelogram. Otherwise, print "java.lang.Exception: Breadth and height must be positive" without quotes.
+//Print the following  lines, each to  decimals:
 //
-//Sample input 1
+//proportion of positive values
+//proportion of negative values
+//proportion of zeros
+//Sample Input
 //
-//1
-//3
-//Sample output 1
+//STDIN           Function
+//-----           --------
+//6               arr[] size n = 6
+//-4 3 -9 0 4 1   arr = [-4, 3, -9, 0, 4, 1]
+//Sample Output
 //
-//3
-//Sample input 2
+//0.500000
+//0.333333
+//0.166667
+//Explanation
 //
-//-1
-//2
-//Sample output 2
-//
-//java.lang.Exception: Breadth and height must be positive   
-package HackerRankCode;
+//There are  positive numbers,  negative numbers, and  zero in the array.
+//The proportions of occurrence are positive: , negative:  and zeros: .
+package IntevewQuestSolutionHacker;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -41,33 +66,54 @@ import java.util.Scanner;
 public class Solution8 {
     
 
+    /*
+     * Complete the 'plusMinus' function below.
+     *
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
 
-    static int B;
-    static int H;
-    static boolean flag;
+    public static void plusMinus(List<Integer> arr) {
+        int n = arr.size();
+        double positiveCount = 0;
+        double negativeCount = 0;
+        double zeroCount = 0;
 
-    static {
-        Scanner scanner = new Scanner(System.in);
-        B = scanner.nextInt();
-        H = scanner.nextInt();
-        scanner.close();
-
-        if (B <= 0 || H <= 0) {
-            System.out.println("java.lang.Exception: Breadth and height must be positive");
-            flag = false;
-        } else {
-            flag = true;
+        for (int num : arr) {
+            if (num > 0) {
+                positiveCount++;
+            } else if (num < 0) {
+                negativeCount++;
+            } else {
+                zeroCount++;
+            }
         }
+
+        double positiveRatio = positiveCount / n;
+        double negativeRatio = negativeCount / n;
+        double zeroRatio = zeroCount / n;
+
+        System.out.printf("%.6f\n", positiveRatio);
+        System.out.printf("%.6f\n", negativeRatio);
+        System.out.printf("%.6f\n", zeroRatio);
     }
 
-    public static void main(String[] args) {
-        if (flag) {
-            int area = B * H;
-            System.out.println(area);
-        }
-    }
 }
 
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> arr = Arrays.stream(bufferedReader.readLine().split(" "))
+                                   .map(Integer::parseInt)
+                                   .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+        Solution8.plusMinus(arr);
+
+        bufferedReader.close();
+    }
+}
 
     
 

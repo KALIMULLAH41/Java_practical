@@ -1,80 +1,14 @@
-//Two strings,a  and b, are called anagrams if they contain all the same characters in the same frequencies. For this challenge, the test is not case-sensitive. For example, the anagrams of CAT are CAT, ACT, tac, TCA, aTC, and CtA.
-//
-//Function Description
-//
-//Complete the isAnagram function in the editor.
-//
-//isAnagram has the following parameters:
-//
-//string a: the first string
-//string b: the second string
-//Returns
-//
-//boolean: If a and b are case-insensitive anagrams, return true. Otherwise, return false.
-//Input Format
-//
-//The first line contains a string .
-//The second line contains a string .
-//
-//Constraints
-//1<=length(a),length(b)<=50
-//Strings a and b consist of English alphabetic characters.
-//The comparison should NOT be case sensitive.
-//Sample Input 0
-//
-//anagram
-//margana
-//Sample Output 0
-//
-//Anagrams
-//Explanation 0
-//
-//Character	Frequency: anagram	Frequency: margana
-//A or a	3	3
-//G or g	1	1
-//N or n	1	1
-//M or m	1	1
-//R or r	1	1
-//The two strings contain all the same letters in the same frequencies, so we print "Anagrams".
-//
-//Sample Input 1
-//
-//anagramm
-//marganaa
-//Sample Output 1
-//
-//Not Anagrams
-//Explanation 1
-//
-//Character	Frequency: anagramm	Frequency: marganaa
-//A or a	3	4
-//G or g	1	1
-//N or n	1	1
-//M or m	2	1
-//R or r	1	1
-//The two strings don't contain the same number of a's and m's, so we print "Not Anagrams".
-//
-//Sample Input 2
-//
-//Hello
-//hello
-//Sample Output 2
-//
-//Anagrams
-//Explanation 2
-//
-//Character	Frequency: Hello	Frequency: hello
-//E or e	1	1
-//H or h	1	1
-//L or l	2	2
-//O or o	1	1
-//The two strings contain all the same letters in the same frequencies, so we print "Anagrams".
-// 
-package HackerRankCode;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package IntevewQuestSolutionHacker;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -82,39 +16,56 @@ import java.util.Scanner;
  */
 public class Solution15 {
     
+  
 
-    static boolean isAnagram(String a, String b) {
-        // Convert both strings to lowercase
-        a = a.toLowerCase();
-        b = b.toLowerCase();
-        
-        // If lengths are different, they cannot be anagrams
-        if (a.length() != b.length()) {
-            return false;
-        }
+    /*
+     * Complete the 'makingAnagrams' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. STRING s1
+     *  2. STRING s2
+     */
 
+    public static int makingAnagrams(String s1, String s2) {
         // Count the frequency of characters in both strings
-        Map<Character, Integer> charCount = new HashMap<>();
-        for (char c : a.toCharArray()) {
-            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
-        }
-        for (char c : b.toCharArray()) {
-            if (!charCount.containsKey(c) || charCount.get(c) == 0) {
-                return false; // If a character in b is not present in a or its count is 0, they are not anagrams
-            }
-            charCount.put(c, charCount.get(c) - 1);
+        int[] freq1 = new int[26]; // Assuming lowercase English alphabets only
+        int[] freq2 = new int[26];
+        
+        for (char c : s1.toCharArray()) {
+            freq1[c - 'a']++;
         }
         
-        return true;
+        for (char c : s2.toCharArray()) {
+            freq2[c - 'a']++;
+        }
+
+        // Calculate the total number of deletions needed
+        int deletions = 0;
+        for (int i = 0; i < 26; i++) {
+            deletions += Math.abs(freq1[i] - freq2[i]);
+        }
+        
+        return deletions;
     }
 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        String a = scan.next();
-        String b = scan.next();
-        scan.close();
-        boolean result = isAnagram(a, b);
-        System.out.println(result ? "Anagrams" : "Not Anagrams");
+}
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s1 = bufferedReader.readLine();
+        String s2 = bufferedReader.readLine();
+
+        int result = Solution15.makingAnagrams(s1, s2);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
 

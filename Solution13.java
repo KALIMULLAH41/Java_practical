@@ -1,84 +1,77 @@
-//We define the following terms:
-//
-//Lexicographical Order, also known as alphabetic or dictionary order, orders characters as follows:
-//For example, ball < cat, dog < dorm, Happy < happy, Zoo < ball.
-//
-//A substring of a string is a contiguous block of characters in the string. For example, the substrings of abc are a, b, c, ab, bc, and abc.
-//Given a string, , and an integer, , complete the function so that it finds the lexicographically smallest and largest substrings of length .
-//
-//Function Description
-//
-//Complete the getSmallestAndLargest function in the editor below.
-//
-//getSmallestAndLargest has the following parameters:
-//
-//string s: a string
-//int k: the length of the substrings to find
-//Returns
-//
-//string: the string ' + "\n" + ' where and are the two substrings
-//Input Format
-//
-//The first line contains a string denoting .
-//The second line contains an integer denoting .
-//
-//Constraints
-//
-// consists of English alphabetic letters only (i.e., [a-zA-Z]).
-//Sample Input 0
-//
-//welcometojava
-//3
-//Sample Output 0
-//
-//ava
-//wel
-//Explanation 0
-//
-//String  has the following lexicographically-ordered substrings of length :
-//
-//We then return the first (lexicographically smallest) substring and the last (lexicographically largest) substring as two newline-separated values (i.e., ava\nwel).
-//
-//The stub code in the editor then prints ava as our first line of output and wel as our second line of output.
-package HackerRankCode;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package IntevewQuestSolutionHacker;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  *
  * @author kalim
  */
 public class Solution13 {
-    
+ 
 
-    public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        Scanner scanner = new Scanner(System.in);
-        
-        String s = scanner.next();
-        int k = scanner.nextInt();
-        
-        String result = getSmallestAndLargest(s, k);
-        System.out.println(result);
-        
-        scanner.close();
-    }
-    
-    public static String getSmallestAndLargest(String s, int k) {
-        String smallest = null;
-        String largest = null;
-        
-        for (int i = 0; i <= s.length() - k; i++) {
-            String substring = s.substring(i, i + k);
-            if (smallest == null || substring.compareTo(smallest) < 0) {
-                smallest = substring;
-            }
-            if (largest == null || substring.compareTo(largest) > 0) {
-                largest = substring;
-            }
+    /*
+     * Complete the 'anagram' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
+     */
+
+    public static int anagram(String s) {
+        // If the length of the string is odd, it's not possible to split it into two equal parts
+        if (s.length() % 2 != 0) {
+            return -1;
         }
-        
-        return smallest + "\n" + largest;
+
+        // Split the string into two substrings of equal length
+        String s1 = s.substring(0, s.length() / 2);
+        String s2 = s.substring(s.length() / 2);
+
+        // Count the frequency of characters in both substrings
+        int[] count = new int[26]; // Assuming lowercase English alphabets only
+        for (char c : s1.toCharArray()) {
+            count[c - 'a']++;
+        }
+        for (char c : s2.toCharArray()) {
+            count[c - 'a']--;
+        }
+
+        // Sum up the absolute differences in frequencies to find the number of characters to change
+        int changes = 0;
+        for (int num : count) {
+            changes += Math.abs(num);
+        }
+
+        // Since we are comparing anagrams, we only need to consider one half of the changes
+        return changes / 2;
+    }
+}
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int q = Integer.parseInt(bufferedReader.readLine().trim());
+
+        for (int qItr = 0; qItr < q; qItr++) {
+            String s = bufferedReader.readLine();
+
+            int result = Solution13.anagram(s);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
 
